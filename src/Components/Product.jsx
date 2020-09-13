@@ -1,16 +1,8 @@
 import React from "react";
-import {useDispatch} from 'react-redux'
-import {addToBasket} from '../redux/actions'
 import "../Styles/Product.css";
 
-function Product({ title, price, rating, image, id }) {
+function Product({ title, price, rating, image, id, onClickHandle }) {
  
-  const dispatch = useDispatch()
-
-  function onClickHandle() {
-    dispatch(addToBasket({title, price, rating, image, id}))
-  }
-  
   return (
     <div className="product">
       <div className="product__info">
@@ -33,7 +25,7 @@ function Product({ title, price, rating, image, id }) {
         alt=""
       />
 
-      <button onClick={onClickHandle}>Add to Basket</button>
+      <button onClick={() => onClickHandle(title, price, rating, image, id)}>Add to Basket</button>
     </div>
   );
 }

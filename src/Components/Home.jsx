@@ -1,9 +1,18 @@
 import React from "react";
 import "../Styles/Home.css";
 import Product from "./Product";
+import {useSelector, useDispatch} from 'react-redux'
+import {addToBasket} from '../redux/actions'
 
 
 function Home() {
+  const basket = useSelector(state => state.basket)
+  const dispatch = useDispatch()
+
+   function onClickHandle(title, price, rating, image, id) {
+    localStorage.setItem('basket', JSON.stringify([...basket, {title, price, rating, image, id}]))
+    dispatch(addToBasket({title, price, rating, image, id}))
+  }
 
   return (
     <div className="home">
@@ -17,10 +26,11 @@ function Home() {
         <div className="home__row">
           <Product
             id="12321341"
-            title="The Lean Startup"
+            title="The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses"
             price="29.99"
             rating={5}
             image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg"
+            onClickHandle={onClickHandle}
           />
           <Product
             id="49538094"
@@ -28,6 +38,7 @@ function Home() {
             price="239.0"
             rating={4}
             image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
+            onClickHandle={onClickHandle}
           />
         </div>
 
@@ -38,6 +49,7 @@ function Home() {
             price={199.99}
             rating={3}
             image="https://images-na.ssl-images-amazon.com/images/I/71Swqqe7XAL._AC_SX466_.jpg"
+            onClickHandle={onClickHandle}
           />
           <Product
             id="23445930"
@@ -45,6 +57,7 @@ function Home() {
             price={98.99}
             rating={5}
             image="https://media.very.co.uk/i/very/P6LTG_SQ1_0000000071_CHARCOAL_SLf?$300x400_retinamobilex2$"
+            onClickHandle={onClickHandle}
           />
           <Product
             id="3254354345"
@@ -52,6 +65,7 @@ function Home() {
             price={598.99}
             rating={4}
             image="https://images-na.ssl-images-amazon.com/images/I/816ctt5WV5L._AC_SX385_.jpg"
+            onClickHandle={onClickHandle}
           />
         </div>
 

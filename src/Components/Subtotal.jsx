@@ -2,10 +2,12 @@ import React from 'react'
 import "../Styles/Subtotal.css"
 import CurrencyFormat from 'react-currency-format' 
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 function Subtotal() {
     const [sum, setSum] = React.useState(0)
     const basket = useSelector(state => state.basket)
+    const history = useHistory()
     
 
     React.useEffect(() => {
@@ -18,12 +20,8 @@ function Subtotal() {
         }
 
         setSum(sum)
-     
-    }, [])
+    }, [basket])
 
-   
-
-    console.log(sum)
 
     return (
         <div className="subtotal">
@@ -43,7 +41,7 @@ function Subtotal() {
                 prefix={"$"}
             />
 
-            <button className="subtotal__button">Proceed to Checkout</button>
+            <button className="subtotal__button" onClick={e => history.push('/payment')}>Proceed to Checkout</button>
         </div>
     )
 }
