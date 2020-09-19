@@ -3,15 +3,19 @@ import "../Styles/Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase";
+import { clearBasket } from "../redux/actions";
 
 function Header() {
   const {basket, user} = useSelector((state) => state);
+  const dispatch = useDispatch()
 
   function handleAuth() {
     if (user) {
       auth.signOut()
+      localStorage.removeItem('basket')
+      dispatch(clearBasket())
     }
   }
 

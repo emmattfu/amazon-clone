@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from "react-redux";
 
 import Header from "./Components/Header";
 import Home from "./Components/Home";
@@ -10,18 +10,23 @@ import { auth } from "./firebase";
 import "./App.css";
 import { setUser } from "./redux/actions";
 import Payment from "./Components/Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const promise = loadStripe(
+    "pk_test_51HT0EgLDM9Q25ThyjCBaTAINwQfteCxJ9K2xGq4OPqz7WSlV9LdEI7BUxEhj7h6NhcPkNkZyBmYgnWJOR9Az5PAF00bjNslFw8"
+  );
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         //the user just loged in / he was loggen in
-        dispatch(setUser(authUser))
+        dispatch(setUser(authUser));
       } else {
         // the user loged out
-        dispatch(setUser(null))
+        dispatch(setUser(null));
       }
     });
   }, [dispatch]);
@@ -41,7 +46,9 @@ function App() {
           </Route>
           <Route exact path="/payment">
             <Header />
-            <Payment/>
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
           </Route>
         </Switch>
       </div>

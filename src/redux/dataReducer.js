@@ -1,4 +1,4 @@
-import { ADD_TO_BASKET, REMOVE_FROM_BASKET, SET_USER } from "./types"
+import { ADD_TO_BASKET, CLEAR_BASKET, REMOVE_FROM_BASKET, SET_USER } from "./types"
 
 const initialState = {
     basket: JSON.parse(localStorage.getItem('basket')) || [],
@@ -12,6 +12,8 @@ export default function dataReducer(state=initialState, action) {
         return {...state, basket: state.basket.filter((el, index) => index !== action.payload)}
     } else if (action.type === SET_USER) {
         return {...state, user: action.payload}
+    } else if (action.type === CLEAR_BASKET) {
+        return {...state, basket: action.payload}
     }
 
     return state
