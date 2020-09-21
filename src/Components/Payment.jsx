@@ -11,7 +11,7 @@ function Payment() {
   const [sum, setSum] = useState(0);
   const [error, setError] = useState(null);
   const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState(true)
   const { basket, user } = useSelector((state) => state);
@@ -36,7 +36,7 @@ function Payment() {
     const getClientSecret = async () => {
       const resp = await axios({
         method: 'post',
-        url: `/payments/create?totle=${sum * 100}`
+        url: `/payments/create?total=${sum * 100}`
       });
 
       setClientSecret(resp.data.clientSecret)
@@ -44,6 +44,8 @@ function Payment() {
     
     getClientSecret()
   }, [basket, sum])
+
+  console.log('Secret is', clientSecret)
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -110,7 +112,7 @@ function Payment() {
           </div>
           <div className="payment__details">
             <form onSubmit={handleSubmit}>
-              <CardElement onCHange={handleChange} />
+              <CardElement onChange={handleChange} />
 
               <div className="payment__priceContainer">
                 <CurrencyFormat
