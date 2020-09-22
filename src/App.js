@@ -6,6 +6,7 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Checkout from "./Components/Checkout";
 import Login from "./Components/Login";
+import Orders from "./Components/Orders"
 import { auth } from "./firebase";
 import "./App.css";
 import { setUser } from "./redux/actions";
@@ -49,6 +50,9 @@ function App() {
             <Elements stripe={promise}>
               <Payment />
             </Elements>
+          </Route>
+          <Route exact route="/orders">
+            <Orders />
           </Route>
         </Switch>
       </div>
