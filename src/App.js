@@ -6,7 +6,7 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Checkout from "./Components/Checkout";
 import Login from "./Components/Login";
-import Orders from "./Components/Orders"
+import Orders from "./Components/Orders";
 import { auth } from "./firebase";
 import "./App.css";
 import { setUser } from "./redux/actions";
@@ -52,6 +52,7 @@ function App() {
             </Elements>
           </Route>
           <Route exact route="/orders">
+            <Header />
             <Orders />
           </Route>
         </Switch>

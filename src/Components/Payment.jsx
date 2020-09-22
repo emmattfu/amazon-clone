@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "../Styles/Payment.css";
 import CheckoutProduct from "./CheckoutProduct";
 import { useElements, useStripe, CardElement, Elements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import axios from "../axios";
+import { clearBasket } from "../redux/actions";
+import {db} from '../firebase'
 
 function Payment() {
   const [sum, setSum] = useState(0);
@@ -18,6 +20,7 @@ function Payment() {
   const stripe = useStripe();
   const elements = useElements();
 
+  const dispatch = useDispatch()
   const history = useHistory()
 
   useEffect(() => {
@@ -45,8 +48,6 @@ function Payment() {
     getClientSecret()
   }, [basket, sum])
 
-  console.log('Secret is', clientSecret)
-
   async function handleSubmit(e) {
     e.preventDefault()
     setProcessing(true)
@@ -57,9 +58,22 @@ function Payment() {
         card: elements.getElement(CardElement)
       }
     }).then(({paymentIntent}) => {
+      db
+        .collection('users')
+        .doc(user?.id)
+        .collection('orders')
+        .doc(paymentIntent.id)
+        .set({
+          basket: basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created
+        })
+
       setSucceeded(true)
       setError(null)
       setProcessing(false)
+
+      dispatch(clearBasket())
 
       history.replace('/orders')
     })
