@@ -4,15 +4,15 @@ import "../Styles/CheckoutProduct.css";
 import { removeFromBasket } from "../redux/actions";
 
 const CheckoutProduct = forwardRef(
-  ({ id, image, title, price, rating, index }, ref) => {
+  ({ id, image, title, price, rating, index, hideButton }, ref) => {
     const dispatch = useDispatch();
     const basket = useSelector((state) => state.basket);
 
     function onClickHandler(e) {
       const index = +e.target.dataset.index;
-      const newBasket = basket.filter((_,i) => i !== index);
-    
-      localStorage.setItem('basket', JSON.stringify(newBasket))
+      const newBasket = basket.filter((_, i) => i !== index);
+
+      localStorage.setItem("basket", JSON.stringify(newBasket));
 
       dispatch(removeFromBasket(index));
     }
@@ -39,9 +39,9 @@ const CheckoutProduct = forwardRef(
               })}
           </div>
 
-          <button onClick={onClickHandler} data-index={index} data-id={id}>
-            Remove from Basket
-          </button>
+          {!hideButton && (
+            <button onClick={removeFromBasket}>Remove from Basket</button>
+          )}
         </div>
       </div>
     );

@@ -8,14 +8,14 @@ import { auth } from "../firebase";
 import { clearBasket } from "../redux/actions";
 
 function Header() {
-  const {basket, user} = useSelector((state) => state);
-  const dispatch = useDispatch()
+  const { basket, user } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   function handleAuth() {
     if (user) {
-      auth.signOut()
-      localStorage.removeItem('basket')
-      dispatch(clearBasket())
+      auth.signOut();
+      localStorage.removeItem("basket");
+      dispatch(clearBasket());
     }
   }
 
@@ -37,14 +37,21 @@ function Header() {
       <div className="header__nav">
         <Link to={!user ? "/login" : "/"}>
           <div className="header__option" onClick={handleAuth}>
-            <span className="header__optionLineOne">{user ? user.email : "Hello Guest"}</span>
-            <span className="header__optionLineTwo">{user ? "Sign Out" : "Sign In"}</span>
+            <span className="header__optionLineOne">
+              {user ? user.email : "Hello Guest"}
+            </span>
+            <span className="header__optionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
           </div>
         </Link>
-        <div className="header__option">
-          <span className="header__optionLineOne">Returns</span>
-          <span className="header__optionLineTwo">&Orders</span>
-        </div>
+        <Link to="/orders">
+          <div className="header__option">
+            <span className="header__optionLineOne">Returns</span>
+            <span className="header__optionLineTwo">&Orders</span>
+          </div>
+        </Link>
+
         <div className="header__option">
           <span className="header__optionLineOne">Your</span>
           <span className="header__optionLineTwo">Prime</span>
