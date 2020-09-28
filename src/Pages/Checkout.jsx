@@ -1,8 +1,7 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
 import "../Styles/Checkout.css"
-import Subtotal from './Subtotal'
-import CheckoutProduct from './CheckoutProduct'
+import {CheckoutProduct, Subtotal} from '../Components'
 import FlipMove from 'react-flip-move';
 
 

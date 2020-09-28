@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import Header from "./Components/Header";
-import Home from "./Components/Home";
-import Checkout from "./Components/Checkout";
-import Login from "./Components/Login";
-import Orders from "./Components/Orders";
+import {Header} from "./Components"
+import {Home, Login, Checkout, Orders, Payment} from "./Pages"
 import { auth } from "./firebase";
-import "./App.css";
 import { setUser } from "./redux/actions";
-import Payment from "./Components/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import "./App.css";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const dispatch = useDispatch();

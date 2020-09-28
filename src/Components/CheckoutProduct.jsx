@@ -11,7 +11,6 @@ const CheckoutProduct = forwardRef(
     function onClickHandler(e) {
       const index = +e.target.dataset.index;
       const newBasket = basket.filter((_, i) => i !== index);
-
       localStorage.setItem("basket", JSON.stringify(newBasket));
 
       dispatch(removeFromBasket(index));
@@ -40,7 +39,7 @@ const CheckoutProduct = forwardRef(
           </div>
 
           {!hideButton && (
-            <button onClick={removeFromBasket}>Remove from Basket</button>
+            <button data-index={index} onClick={onClickHandler}>Remove from Basket</button>
           )}
         </div>
       </div>
