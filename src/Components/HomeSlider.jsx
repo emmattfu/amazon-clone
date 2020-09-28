@@ -2,11 +2,13 @@ import React from "react";
 import Slider from "react-slick";
 
 const settings = {
-  dots: true,
+  dots: false,
   infinite: true,
-  speed: 500,
+  speed: 400,
   slidesToShow: 1,
   slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 5000
 };
 
 function HomeSlider() {
